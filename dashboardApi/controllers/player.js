@@ -17,6 +17,7 @@ const getPlayer = async (req, res) => {
   return res.status(200).json(player);
 };
 
+// Create a  new player
 const createPlayer = async (req, res) => {
   console.log(req.body);
   const newPlayer = new Player({
@@ -36,6 +37,7 @@ const createPlayer = async (req, res) => {
   }
 };
 
+// UPDATE a  new player
 const updatePlayer = async (req, res) => {
   const playerID = req.params.playerID;
   const foundedPlayer = await Player.findOne({ _id: playerID });
@@ -45,18 +47,22 @@ const updatePlayer = async (req, res) => {
       number: req.body.number,
       position: req.body.position,
       image: req.body.image,
-    //   performances: req.body.performances,
+      //   performances: req.body.performances,
     };
     console.log(updatedPlayer);
-    // return res.status(200).json("Player updated");
 
-    const updateFinished = await Player.replaceOne(foundedPlayer, updatedPlayer);
+    const updateFinished = await Player.replaceOne(
+      foundedPlayer,
+      updatedPlayer
+    );
     if (updateFinished) {
       console.log(updateFinished);
+      return res.status(200).json("Player updated");
     }
   }
 };
 
+// DELETE a player by ID
 const deletePlayer = async (req, res) => {
   const playerID = req.params.playerID;
   const isDelete = await Player.findByIdAndRemove({ _id: playerID });
@@ -71,5 +77,4 @@ module.exports = {
   createPlayer,
   updatePlayer,
   deletePlayer,
-  // login,
 };
