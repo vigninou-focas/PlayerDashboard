@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&display=swap");
+
+@font-face {
+  font-family: "Be Vietnam Pro";
+  src: url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&display=swap");
+}
+
+.sidebar-container {
+  /* background-color: #2c0015; */
+  /* background-color: #ffda7e; */
+  background-color: #ffffff;
+  width: fit-content;
+  /* border-right: solid 1px rgb(255, 213, 0); */
+  /* font-weight: bold; */
+  font-size: 0.9em;
+  font-family: "Be Vietnam Pro, Courier New", Courier, monospace;
+}
+.sidebar {
+  /* background-color: #ffffff;
+  opacity: 1; */
+  height: 100vh;
+}
+.sidebar li {
+  background-color: none !important;
+}
+
