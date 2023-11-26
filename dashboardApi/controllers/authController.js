@@ -12,7 +12,7 @@ const login = async (req, res) => {
   const loginUser = await User.findOne({
     email: req.body.email,
   });
-
+  const token = req.header('Authorization');
   if (!loginUser) {
     return res.status(400).json({ error: "Utilisateur inexistant" });
   }
@@ -25,6 +25,7 @@ const login = async (req, res) => {
     const loginToken = jwt.sign({ email: loginUser.email }, jwtSecret, {
       expiresIn: "3600000",
     });
+    return res.status(200).json(loginToken);
     // console.log(loginToken);
 
     // const setCookie = await res.cookie("sacof_token", loginToken, {
@@ -32,7 +33,8 @@ const login = async (req, res) => {
     // });
 
     // console.log(setCookie)
-    return res.status(200).json(loginUser._id);
+    // return res.status(200).json(loginUser._id);
+    return res.status(200).json(loginToken);
     // return res.redirect("/");
     // return res.status(200).json({ success: "Connexion réussie", loginToken });
   } else {

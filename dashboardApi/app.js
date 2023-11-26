@@ -10,8 +10,8 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-const port = 5000;
-
+const port = process.env.PORT || 5000;
+const dbConnection = process.env.DB_CONNECTION_STRING;
 const routes_user = require("./router/user");
 const routes_player = require("./router/player");
 
@@ -19,7 +19,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/player_db")
+  .connect(dbConnection)
   .then(console.log("----> Player connected succesfully"))
   .catch((error) => {
     console.log("connexion refused : " + error);
