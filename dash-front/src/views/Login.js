@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import { useNavigate, Link } from "react-router-dom";
+import "../assets/css/login.css";
 
 function Login() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     // document
@@ -17,27 +19,14 @@ function Login() {
     e.preventDefault();
 
     // Si les champs sont pas vides
-    if (!name || !email || !password || !passwordConfirm) {
+    if (!email || !password) {
       setError("Tous les champs sont obligatoires");
       return;
     }
 
-    const namePattern = /^[a-zA-Z\s]*$/;
-    if (!namePattern.test(name)) {
-      setError("Le nom ne doit contenir que des lettres et des espaces");
-      return;
-    }
-
-    // Si les mots de pass concordent
-    if (password !== passwordConfirm) {
-      setError("Les mots de passe ne correspondent pas !");
-      return;
-    }
-
-    const response = await fetch("http://localhost:5000/user/register", {
+    const response = await fetch("http://localhost:5000/user/login", {
       method: "POST",
       body: JSON.stringify({
-        name,
         email,
         password,
       }),
@@ -47,25 +36,28 @@ function Login() {
     });
 
     if (response.ok) {
-      alert("Vous êtes inscrit !");
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Connexion réussit",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
       setError("");
+      navigate("/");
     } else {
       const errorData = await response.json();
       setError(errorData.error || response.statusText);
     }
   };
   return (
-    <div>
-      <>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="loginContainer">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 wrapper-l1">
+        <div className="formWrapper">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            {/* <img
-              className="mx-auto h-10 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt="Your Company"
-            /> */}
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
+              Se connecter au dashboard
             </h2>
           </div>
 
@@ -106,7 +98,7 @@ function Login() {
                       href="#"
                       className="font-semibold text-indigo-600 hover:text-indigo-500"
                     >
-                      Forgot password?
+                      password oublié?
                     </a>
                   </div>
                 </div>
@@ -130,23 +122,23 @@ function Login() {
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Sign in
+                  Se connecter
                 </button>
               </div>
             </form>
 
             <p className="mt-10 text-center text-sm text-gray-500">
               Pas encore de compte ?{" "}
-              <a
-                href="#"
+              <Link
+                to={'/register'}
                 className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
               >
                 S'inscrire ici
-              </a>
+              </Link>
             </p>
           </div>
         </div>
-      </>
+      </div>
     </div>
   );
 }

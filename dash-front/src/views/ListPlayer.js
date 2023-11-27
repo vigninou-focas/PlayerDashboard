@@ -1,6 +1,6 @@
 import React from "react";
-import "../listplayer.css";
-import BgImage from "../img/pbg1.jpg";
+import "../assets/css/listplayer.css";
+import BgImage from "../assets/img/img1.png";
 
 function ListPlayer() {
   let allCountries = [];
@@ -42,14 +42,14 @@ function ListPlayer() {
   };
   return (
     <div className="playerListPage">
-      <div class="logo" >
-        {/* <img src={BgImage} /> */}
+      <div>
+        <img src={BgImage} class="logo" />
       </div>
       <div class="card subdiv">
-        <header>
+        <header className="listplayer">
           <div class="playerCount">Répertoire de joueurs</div>
           <div class="playerSearch">
-            <img src="./images/Search.svg" />
+            <img src="http://jeffschaefer.net/challenges/devchallenges/countryrank/images/Search.svg" />
             <input type="text" placeholder="Rechercher un joueur" />
           </div>
         </header>
@@ -59,9 +59,9 @@ function ListPlayer() {
             <section>
               <label for="sort">Sort by</label>
               <select name="sort">
-                <option value="population">Player Name</option>
-                <option value="name">Jersey Number</option>
-                <option value="area">Poste</option>
+                <option value="name">Player Name</option>
+                <option value="number">Jersey Number</option>
+                <option value="poste">Poste</option>
               </select>
             </section>
             <section>
