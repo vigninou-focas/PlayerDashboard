@@ -2,6 +2,7 @@ const express = require("express");
 // const { userDataValidateChainMethod, validateUserData } = require('../models/user')
 
 const router = express.Router();
+const authenticateToken = require("../controllers/middlewares/authenticateToken");
 
 const {
   getUsers,
@@ -11,19 +12,19 @@ const {
   deleteUser,
 } = require("../controllers/user.js");
 
-const { login, register, mail_verification } = require("../controllers/authController.js");
+const { login, register, mail_verification } = require("../controllers/middlewares/authController.js");
 
-router.get("/user", getUsers);
+router.get("/user", authenticateToken, getUsers);
 router.get("/user/:userID", getUser);
 
-router.post("/user", createUser);
+router.post("/user", authenticateToken, createUser);
 router.post("/user/login", login);
 router.post("/user/register", register);
 
-router.put("/user/:userID", updateUser);
+router.put("/user/:userID", authenticateToken, updateUser);
 
 router.get("mail_verification/:token", mail_verification)
 
-router.delete("/user/:userID", deleteUser);
+router.delete("/user/:userID", authenticateToken, deleteUser);
 
 module.exports = router;

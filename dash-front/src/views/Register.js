@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, Link } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../assets/css/login.css";
 
 // import { faUser, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -27,19 +27,39 @@ const Register = () => {
 
     // Si les champs sont pas vides
     if (!username || !email || !password || !passwordConfirm) {
-      setError("Tous les champs sont obligatoires");
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Tous les champs sont obligatoires!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      // setError("Tous les champs sont obligatoires");
       return;
     }
 
     const usernamePattern = /^[a-zA-Z\s]*$/;
     if (!usernamePattern.test(username)) {
-      setError("Le nom ne doit contenir que des lettres et des espaces");
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        timer: 1500,
+        title: "Le nom ne doit contenir que des lettres et des espaces",
+        showConfirmButton: false,
+      });
       return;
     }
 
     // Si les mots de pass concordent
     if (password !== passwordConfirm) {
-      setError("Les mots de passe ne correspondent pas !");
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        timer: 1500,
+        title: "Les mots de passe ne correspondent pas !",
+        showConfirmButton: false,
+      });
+      // setError("Les mots de passe ne correspondent pas !");
       return;
     }
 
@@ -66,15 +86,15 @@ const Register = () => {
       setError("");
       navigate("/");
     } else {
-      const errorData = await response.json();
-      setError(errorData.error || response.statusText);
       Swal.fire({
         position: "top-end",
         icon: "error",
-        title: errorData.error,
+        title: "Valeur incorrecte",
         showConfirmButton: false,
         timer: 1500,
       });
+      const errorData = await response.json();
+      setError(errorData || response.statusText);
     }
   };
 
@@ -140,14 +160,6 @@ const Register = () => {
                   >
                     Password
                   </label>
-                  <div className="text-sm">
-                    <a
-                      href="#"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
-                      password oublié?
-                    </a>
-                  </div>
                 </div>
                 <div className="mt-2">
                   <input
@@ -172,14 +184,6 @@ const Register = () => {
                   >
                     Password
                   </label>
-                  <div className="text-sm">
-                    <a
-                      href="#"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
-                      password oublié?
-                    </a>
-                  </div>
                 </div>
                 <div className="mt-2">
                   <input
@@ -187,7 +191,7 @@ const Register = () => {
                     name="password"
                     type="password"
                     placeholder="Mot de passe"
-                    value={password}
+                    value={passwordConfirm}
                     onChange={(e) => setPasswordConfirm(e.target.value)}
                     autoComplete="current-password"
                     required

@@ -12,6 +12,7 @@ const corsOptions = {
 
 const port = process.env.PORT || 5000;
 const dbConnection = process.env.DB_CONNECTION_STRING;
+// const dbConnection = "mongodb://127.0.0.1:27017/player_db";
 const routes_user = require("./router/user");
 const routes_player = require("./router/player");
 
@@ -33,9 +34,9 @@ app.use(express.json());
 
 app.use(routes_user);
 app.use(routes_player);
-// app.get("/", (req, res) => {
-//   res.send("Houefa for you!");
-// });
+app.get("/", (req, res) => {
+  res.send("Welcome player!");
+});
 
 app.use("/user", (req, res) => {
   console.log(req);

@@ -1,9 +1,13 @@
 const dotenv = require("dotenv").config({ path: "../../.env" });
-const User = require("../models/user");
+const User = require("../../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const jwtSecret = process.env.JWTTOKEN;
+// const path = require("path");
+// const dotenvPath = path.resolve(__dirname, "../.env");
+// require("dotenv").config({ path: dotenvPath });
+
+const jwtSecret = process.env.JWT_SECRET;
 // path.resolve(process.cwd(), '.env')
 
 const login = async (req, res) => {
@@ -12,7 +16,7 @@ const login = async (req, res) => {
   const loginUser = await User.findOne({
     email: req.body.email,
   });
-  const token = req.header('Authorization');
+
   if (!loginUser) {
     return res.status(400).json({ error: "Utilisateur inexistant" });
   }
@@ -25,18 +29,10 @@ const login = async (req, res) => {
     const loginToken = jwt.sign({ email: loginUser.email }, jwtSecret, {
       expiresIn: "3600000",
     });
-    return res.status(200).json(loginToken);
     // console.log(loginToken);
-
-    // const setCookie = await res.cookie("sacof_token", loginToken, {
-    //   httpOnly: true,
-    // });
-
-    // console.log(setCookie)
-    // return res.status(200).json(loginUser._id);
     return res.status(200).json(loginToken);
-    // return res.redirect("/");
-    // return res.status(200).json({ success: "Connexion réussie", loginToken });
+
+    // return res.status(200).json(loginUser._id);
   } else {
     return res
       .status(400)
@@ -109,12 +105,8 @@ const register = async (req, res) => {
 
           // console.log(setCookoe);
 
-          console.log(
-            "--------------------after define mail state"
-          );
-          console.log(
-            "--------------------after afterrrrrrrrrrrrr mail state"
-          );
+          console.log("--------------------after define mail state");
+          console.log("--------------------after afterrrrrrrrrrrrr mail state");
 
           // console.log(isSaved);
 
