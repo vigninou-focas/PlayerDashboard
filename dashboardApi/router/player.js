@@ -1,7 +1,6 @@
 const express = require("express");
-
+const authenticateToken = require("../controllers/middlewares/authenticateToken");
 const router = express.Router();
-
 const {
   getPlayers,
   getPlayer,
@@ -10,7 +9,7 @@ const {
   deletePlayer,
 } = require("../controllers/player.js");
 
-router.get("/player", getPlayers);
+router.get("/player", authenticateToken, getPlayers);
 
 router.get("/player/:playerID", getPlayer);
 
