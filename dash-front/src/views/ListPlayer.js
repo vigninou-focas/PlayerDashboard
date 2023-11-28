@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/listplayer.css";
+
 import BgImage from "../assets/img/img1.png";
+import IconView from "../assets/img/icons/view.png";
+import Delete from "../assets/img/icons/delete.png";
+import EditBtn from "../assets/img/icons/edit.png";
+import ShowPlayer from "../components/players/ShowPlayer";
 import Swal from "sweetalert2";
 import AddPlayer from "../components/players/AddPlayer";
 
@@ -14,7 +19,13 @@ function ListPlayer() {
   const getAllplayers = async () => {
     const apiUrl = `http://localhost:5000/player`;
 
-    fetch(apiUrl)
+    fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+      },
+    })
       .then((response) => {
         console.log(response);
         if (!response.ok) {
@@ -37,29 +48,12 @@ function ListPlayer() {
         console.log(error);
         Swal.fire({
           position: "top-end",
-          icon: { error },
+          icon: "error",
           title: "La requête a échoué",
           showConfirmButton: false,
           timer: 1500,
         });
       });
-  };
-  const addPlayer = async () => {
-    // Swal.fire({
-    //   title: "Ajouter un nouveau joueur",
-    //   text: {},
-    //   showDenyButton: true,
-    //   showCancelButton: true,
-    //   confirmButtonText: "Save",
-    //   denyButtonText: `Don't save`,
-    // }).then((result) => {
-    //   /* Read more about isConfirmed, isDenied below */
-    //   if (result.isConfirmed) {
-    //     Swal.fire("Saved!", "", "success");
-    //   } else if (result.isDenied) {
-    //     Swal.fire("Changes are not saved", "", "info");
-    //   }
-    // });
   };
 
   return (
@@ -89,24 +83,11 @@ function ListPlayer() {
             <section>
               <label htmlFor="regions">Actions</label>
               <div className="regions">
-                $
-                <AddPlayer className="region active" />
-                <div className="region active">Add player</div>
-                <div className="region">list </div>
-                <div className="region active">Africa</div>
+                <AddPlayer />
+                {/* <AddPlayer className="region active" /> */}
               </div>
             </section>
-            <section>
-              <label htmlFor="status">Status</label>
-              <div className="memberCB">
-                <input type="checkbox" name="member" />
-                <label htmlFor="member">Member of the United Nations</label>
-              </div>
-              <div className="indCB">
-                <input type="checkbox" name="ind" checked />
-                <label htmlFor="ind">Independent</label>
-              </div>
-            </section>
+            <section></section>
           </div>
 
           <div className="main">
@@ -115,9 +96,9 @@ function ListPlayer() {
                 <tr>
                   <th>Image</th>
                   <th>Player Name</th>
-                  <th>Jersey Number</th>
+                  <th>Jersey</th>
                   <th>Position</th>
-                  <th>Performance</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               {allPlayers && allPlayers.length > 0 && (
@@ -127,7 +108,8 @@ function ListPlayer() {
                       <td>
                         <a href={`/player/${player.id}`}>
                           <img
-                            src={player.playerImage}
+                            src="https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg"
+                            // src={player.playerImage}
                             alt={player.playerName}
                           />
                         </a>
@@ -135,7 +117,18 @@ function ListPlayer() {
                       <td>{player.playerName}</td>
                       <td>{player.jerseyNumber}</td>
                       <td>{player.position}</td>
-                      <td>{player.region}</td>
+                      <td className="ActionsBtn">
+                        {" "}
+                        <div className="playerIconBtn">
+                          <img src={IconView} />
+                        </div>{" "}
+                        <div className="playerIconBtn">
+                          <ShowPlayer playerID={player._id} />
+                        </div>{" "}
+                        <div className="playerIconBtn">
+                          <img src={Delete} />
+                        </div>{" "}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

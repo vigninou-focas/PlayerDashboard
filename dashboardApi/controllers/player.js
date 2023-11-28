@@ -14,6 +14,7 @@ const getPlayer = async (req, res) => {
   if (!player) {
     return res.status(404).send("Player not found");
   }
+  console.log(player);
   return res.status(200).json(player);
 };
 

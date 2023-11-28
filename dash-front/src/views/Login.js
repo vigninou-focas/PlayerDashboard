@@ -30,6 +30,7 @@ function Login() {
     });
 
     if (response.ok) {
+      localStorage.setItem('jwtToken', response.body);
       Swal.fire({
         position: "top-end",
         icon: "success",

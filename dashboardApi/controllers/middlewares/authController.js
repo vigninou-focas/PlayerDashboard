@@ -97,19 +97,6 @@ const register = async (req, res) => {
           console.log(current_mail);
           console.log("-------------------------------------End mail_form");
 
-          // console.log(mailState);
-
-          // const setCookoe = await res.cookie("sacof_token", mailToken, {
-          //   httpOnly: true,
-          // });
-
-          // console.log(setCookoe);
-
-          console.log("--------------------after define mail state");
-          console.log("--------------------after afterrrrrrrrrrrrr mail state");
-
-          // console.log(isSaved);
-
           res.status(201).json({
             success:
               "user registred successefully, check your mail to valide your account",
