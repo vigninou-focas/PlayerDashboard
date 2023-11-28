@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
 import "../assets/css/login.css";
-
-// import { faUser, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -15,12 +13,6 @@ const Register = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // document
-    //   .querySelector(".signup-form")
-    //   .classList.add("animate__animated", "animate__fadeIn");
-  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -222,61 +214,6 @@ const Register = () => {
         </div>
       </div>
     </div>
-    // <>
-    //   <form
-    //     className="signup-form flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"
-    //     onSubmit={submitHandler}
-    //   >
-    //     <div className="p-4">
-    //       <h3 className="text-xl font-semibold text-gray-800">Inscription</h3>
-    //     </div>
-    //     <div className="p-4">
-    //       <input
-    //         type="text"
-    //         placeholder="Nom d'utilisateur"
-    //         value={username}
-    //         onChange={(e) => setUsername(e.target.value)}
-    //         className="w-full px-4 py-2 rounded-md border-gray-300 focus:border-blue-500"
-    //       />
-    //     </div>
-    //     <div className="p-4">
-    //       <input
-    //         type="text"
-    //         placeholder="Adresse e-mail"
-    //         value={email}
-    //         onChange={(e) => setEmail(e.target.value)}
-    //         className="w-full px-4 py-2 rounded-md border-gray-300 focus:border-blue-500"
-    //       />
-    //     </div>
-    //     <div className="p-4">
-    //       <input
-    //         type="password"
-    //         placeholder="Mot de passe"
-    //         value={password}
-    //         onChange={(e) => setPassword(e.target.value)}
-    //         className="w-full px-4 py-2 rounded-md border-gray-300 focus:border-blue-500"
-    //       />
-    //     </div>
-    //     <div className="p-4">
-    //       <input
-    //         type="password"
-    //         placeholder="Confirmer le mot de passe"
-    //         value={passwordConfirm}
-    //         onChange={(e) => setPasswordConfirm(e.target.value)}
-    //         className="w-full px-4 py-2 rounded-md border-gray-300 focus:border-blue-500"
-    //       />
-    //     </div>
-    //     {error && <div className="p-4 text-red-500">{error}</div>}
-    //     <div className="p-4">
-    //       <button
-    //         type="submit"
-    //         className="bg-blue-500 text-white px-4 py-2 rounded-full"
-    //       >
-    //         S'inscrire
-    //       </button>
-    //     </div>
-    //   </form>
-    // </>
   );
 };
 

@@ -54,7 +54,8 @@ header.listplayer {
   align-items: center;
   margin-bottom: 2rem;
 }
-header.listplayer div, input::placeholder {
+header.listplayer div,
+input::placeholder {
   font-size: 1.1em;
 }
 .playerCount {

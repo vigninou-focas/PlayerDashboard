@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const playerSchema = new mongoose.Schema({
-  name: {
+  playerName: {
     type: String,
     required: true,
   },
-  number: {
+  jerseyNumber: {
     type: Number,
     required: true,
   },
@@ -13,7 +13,7 @@ const playerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
+  playerImage: {
     type: String,
     required: true,
     default: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",

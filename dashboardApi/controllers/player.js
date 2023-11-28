@@ -19,15 +19,18 @@ const getPlayer = async (req, res) => {
 
 // Create a  new player
 const createPlayer = async (req, res) => {
+  parseJerseyNumber = parseInt(req.body.jerseyNumber);
+  console.log(typeof parseJerseyNumber);
   console.log(req.body);
   const newPlayer = new Player({
-    name: req.body.name,
-    number: req.body.number,
+    playerName: req.body.playerName,
+    jerseyNumber: parseJerseyNumber,
     position: req.body.position,
-    image: req.body.image,
+    playerImage: req.body.playerImage,
     // performances: req.body.performances,
   });
 
+  console.log(newPlayer);
   try {
     newPlayer.save().then((newPlayer) => {
       return res.status(201).json(newPlayer);
@@ -43,10 +46,10 @@ const updatePlayer = async (req, res) => {
   const foundedPlayer = await Player.findOne({ _id: playerID });
   if (foundedPlayer) {
     const updatedPlayer = {
-      name: req.body.name,
-      number: req.body.number,
+      playerName: req.body.playerName,
+      jerseyNumber: req.body.jerseyNumber,
       position: req.body.position,
-      image: req.body.image,
+      playerImage: req.body.playerImage,
       //   performances: req.body.performances,
     };
     console.log(updatedPlayer);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
 import "../assets/css/login.css";
@@ -8,12 +8,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // document
-    //   .querySelector(".signup-form")
-    //   .classList.add("animate__animated", "animate__fadeIn");
-  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -84,7 +78,7 @@ function Login() {
                   />
                 </div>
               </div>
-
+              
               <div>
                 <div className="flex items-center justify-between">
                   <label

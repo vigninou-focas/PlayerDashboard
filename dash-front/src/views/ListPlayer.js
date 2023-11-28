@@ -1,91 +1,115 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/listplayer.css";
 import BgImage from "../assets/img/img1.png";
+import Swal from "sweetalert2";
+import AddPlayer from "../components/players/AddPlayer";
 
 function ListPlayer() {
-  let allCountries = [];
+  const [allPlayers, setAllPlayers] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  window.onload = function () {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((response) => response.json())
+  useEffect(() => {
+    getAllplayers();
+  }, []);
+  const getAllplayers = async () => {
+    const apiUrl = `http://localhost:5000/player`;
+
+    fetch(apiUrl)
+      .then((response) => {
+        console.log(response);
+        if (!response.ok) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "La requête a échoué",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+        return response.json();
+      })
       .then((data) => {
-        allCountries = data.sort(
-          (a, b) => parseFloat(b.population) - parseFloat(a.population)
-        );
-
-        var i;
-        for (var i = 0; i < 3; i++) {
-          document.querySelector("tbody").innerHTML += `<a href="player/id=${
-            allCountries[i].cca3
-          }">
-                <tr>
-                  <td><img src="${allCountries[i].flags.png}"></td>
-                  <td>${allCountries[i].name.common}</td>
-                  <td>${allCountries[i].population.toLocaleString()}</td>
-                  <td>${allCountries[i].area.toLocaleString()}</td>
-                  <td>${allCountries[i].region}</td>
-                </tr>
-              </a>`;
-        }
-
-        for (var i = 0; i < 5; i++) {
-          document.querySelector("tbody").innerHTML += `<tr>
-                <td><div class="playerSkeleton"></div></td>
-                <td><div class="textSkeleton"></div></td>
-                <td><div class="textSkeleton"></div></td>
-              </tr>`;
-        }
+        console.log(data);
+        setAllPlayers(data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        Swal.fire({
+          position: "top-end",
+          icon: { error },
+          title: "La requête a échoué",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
+  const addPlayer = async () => {
+    // Swal.fire({
+    //   title: "Ajouter un nouveau joueur",
+    //   text: {},
+    //   showDenyButton: true,
+    //   showCancelButton: true,
+    //   confirmButtonText: "Save",
+    //   denyButtonText: `Don't save`,
+    // }).then((result) => {
+    //   /* Read more about isConfirmed, isDenied below */
+    //   if (result.isConfirmed) {
+    //     Swal.fire("Saved!", "", "success");
+    //   } else if (result.isDenied) {
+    //     Swal.fire("Changes are not saved", "", "info");
+    //   }
+    // });
+  };
+
   return (
     <div className="playerListPage">
       <div>
-        <img src={BgImage} class="logo" />
+        <img src={BgImage} className="logo" />
       </div>
-      <div class="card subdiv">
+      <div className="card subdiv">
         <header className="listplayer">
-          <div class="playerCount">Répertoire de joueurs</div>
-          <div class="playerSearch">
+          <div className="playerCount">Répertoire de joueurs</div>
+          <div className="playerSearch">
             <img src="http://jeffschaefer.net/challenges/devchallenges/countryrank/images/Search.svg" />
             <input type="text" placeholder="Rechercher un joueur" />
           </div>
         </header>
 
         <main>
-          <div class="player-sidebar">
+          <div className="player-sidebar">
             <section>
-              <label for="sort">Sort by</label>
-              <select name="sort">
-                <option value="name">Player Name</option>
-                <option value="number">Jersey Number</option>
+              <label htmlFor="sortBy">Trié par :</label>
+              <select name="sortBy">
+                <option value="name">Nom de joueur</option>
+                <option value="number">Numéro de maillot</option>
                 <option value="poste">Poste</option>
               </select>
             </section>
             <section>
-              <label for="regions">Region</label>
-              <div class="regions">
-                <div class="region active">Americas</div>
-                <div class="region">Antarctic</div>
-                <div class="region active">Africa</div>
+              <label htmlFor="regions">Actions</label>
+              <div className="regions">
+                $
+                <AddPlayer className="region active" />
+                <div className="region active">Add player</div>
+                <div className="region">list </div>
+                <div className="region active">Africa</div>
               </div>
             </section>
             <section>
-              <label for="status">Status</label>
-              <div class="memberCB">
+              <label htmlFor="status">Status</label>
+              <div className="memberCB">
                 <input type="checkbox" name="member" />
-                <label for="member">Member of the United Nations</label>
+                <label htmlFor="member">Member of the United Nations</label>
               </div>
-              <div class="indCB">
+              <div className="indCB">
                 <input type="checkbox" name="ind" checked />
-                <label for="ind">Independent</label>
+                <label htmlFor="ind">Independent</label>
               </div>
             </section>
           </div>
 
-          <div class="main">
+          <div className="main">
             <table>
               <thead>
                 <tr>
@@ -96,7 +120,26 @@ function ListPlayer() {
                   <th>Performance</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              {allPlayers && allPlayers.length > 0 && (
+                <tbody>
+                  {allPlayers.map((player) => (
+                    <tr key={player.id}>
+                      <td>
+                        <a href={`/player/${player.id}`}>
+                          <img
+                            src={player.playerImage}
+                            alt={player.playerName}
+                          />
+                        </a>
+                      </td>
+                      <td>{player.playerName}</td>
+                      <td>{player.jerseyNumber}</td>
+                      <td>{player.position}</td>
+                      <td>{player.region}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
             </table>
           </div>
         </main>
