@@ -156,7 +156,11 @@ function EditPlayer(props) {
                       <img
                         alt={player["playerName"]}
                         class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded pr-3"
-                        src="https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg"
+                        src={
+                          player["playerImage"]
+                            ? player["playerImage"]
+                            : `https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg`
+                        }
                       />
                       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mb-6 lg:mb-0">
                         <form className="space-y-6" onSubmit={submitHandler}>

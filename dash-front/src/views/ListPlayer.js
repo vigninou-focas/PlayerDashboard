@@ -13,10 +13,12 @@ import EditPlayer from "../components/players/EditPlayer";
 
 function ListPlayer() {
   const [allPlayers, setAllPlayers] = useState("");
+  const [rerender, setReRender] = useState(false);
   // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getAllplayers();
+
   }, []);
   const getAllplayers = async () => {
     const apiUrl = `http://localhost:5000/player`;
@@ -59,9 +61,9 @@ function ListPlayer() {
 
   return (
     <div className="playerListPage">
-      <div>
+      {/* <div>
         <img src={BgImage} className="logo" />
-      </div>
+      </div> */}
       <div className="card subdiv">
         <header className="listplayer">
           <div className="playerCount">Répertoire de joueurs</div>
@@ -96,7 +98,7 @@ function ListPlayer() {
               <thead>
                 <tr>
                   <th>Image</th>
-                  <th>Player Name</th>
+                  <th>Name</th>
                   <th>Jersey</th>
                   <th>Position</th>
                   <th>Actions</th>

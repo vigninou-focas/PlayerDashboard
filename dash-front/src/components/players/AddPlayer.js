@@ -17,6 +17,7 @@ const customStyles = {
 
 function AddPlayer() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [rerender, setReRender] = useState("");
 
   function openModal() {
     setIsOpen(true);
@@ -113,7 +114,7 @@ function AddPlayer() {
 
   return (
     <div>
-      <div onClick={openModal} className="region active">Add player</div>
+      <div onClick={openModal} className="region active">Ajouter un joueur</div>
       <Modal
         isOpen={modalIsOpen}
         // onAfterOpen={afterOpenModal}
@@ -121,23 +122,23 @@ function AddPlayer() {
         style={customStyles}
         contentLabel="Add new player"
       >
-        <div className="modalContainer">
+        <div className="modalContainer text-gray-400 bg-gray-900 body-font overflow-hidden">
           <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 wrapper-l1">
             <div className="formWrapper">
               <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                  Se connecter au dashboard
+                  Ajouter un joueur
                 </h2>
               </div>
 
-              <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+              <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm ">
                 <form className="space-y-6" onSubmit={submitHandler}>
                   <div>
                     <label
                       htmlFor="playerName"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Entrer un nom d'utilisateur
+                      Entrer un nom du joueur
                     </label>
                     <div className="mt-2">
                       <input

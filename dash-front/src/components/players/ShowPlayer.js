@@ -18,6 +18,7 @@ const customStyles = {
 function ShowPlayer(prop) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [player, setPlayer] = useState(false);
+  const [showPerformance, setShowPerformance] = useState(false);
 
   function openModal() {
     setIsOpen(true);
@@ -26,7 +27,12 @@ function ShowPlayer(prop) {
 
   function closeModal() {
     setIsOpen(false);
+    setShowPerformance(false);
   }
+
+  const showPerformanceHandler = () => {
+    setShowPerformance(!showPerformance);
+  };
 
   const getCurrentPlayer = async () => {
     console.log(prop);
@@ -119,15 +125,41 @@ function ShowPlayer(prop) {
                         <span class="title-font font-medium text-2xl text-white">
                           capacité : 80%
                         </span>
-                        <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                        <button
+                          onClick={showPerformanceHandler}
+                          class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                        >
                           Calculer sa performance ?
                         </button>
                       </div>
+                      {showPerformance && (
+                        <div className="performance mt-4">
+                          <li>
+                            Précision des Tirs: <input type="number" />
+                          </li>
+                          <li>
+                            Distance Parcourue: <input type="number" />
+                          </li>
+                          <li>
+                            Nombre de Duels Gagnés: <input type="number" />
+                          </li>
+                          <li>
+                            Précision des Passes: <input type="number" />
+                          </li>
+                          <li>
+                            Temps de Jeu: <input type="number" />
+                          </li>
+                        </div>
+                      )}
                     </div>
                     <img
                       alt={player["playerName"]}
                       class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-                      src="https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg"
+                      src={
+                        player["playerImage"]
+                          ? player["playerImage"]
+                          : `https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg`
+                      }
                     />
                   </div>
                 </div>
