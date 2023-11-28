@@ -1,102 +1,145 @@
-import React from "react";
-import "../listplayer.css";
-import BgImage from "../img/pbg1.jpg";
+import React, { useState, useEffect } from "react";
+import "../assets/css/listplayer.css";
+
+import BgImage from "../assets/img/img1.png";
+// import IconView from "../assets/img/icons/view.png";
+// import EditBtn from "../assets/img/icons/edit.png";
+import ShowPlayer from "../components/players/ShowPlayer";
+import Swal from "sweetalert2";
+import AddPlayer from "../components/players/AddPlayer";
+// import EditPlayer from "../components/players/EditPlayer";
+import DeletePlayer from "../components/players/DeletePlayer";
+import EditPlayer from "../components/players/EditPlayer";
 
 function ListPlayer() {
-  let allCountries = [];
+  const [allPlayers, setAllPlayers] = useState("");
+  // const [loading, setLoading] = useState(false);
 
-  window.onload = function () {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((response) => response.json())
+  useEffect(() => {
+    getAllplayers();
+  }, []);
+  const getAllplayers = async () => {
+    const apiUrl = `http://localhost:5000/player`;
+
+    fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        if (!response.ok) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "La requête a échoué",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+        return response.json();
+      })
       .then((data) => {
-        allCountries = data.sort(
-          (a, b) => parseFloat(b.population) - parseFloat(a.population)
-        );
-
-        var i;
-        for (var i = 0; i < 3; i++) {
-          document.querySelector("tbody").innerHTML += `<a href="player/id=${
-            allCountries[i].cca3
-          }">
-                <tr>
-                  <td><img src="${allCountries[i].flags.png}"></td>
-                  <td>${allCountries[i].name.common}</td>
-                  <td>${allCountries[i].population.toLocaleString()}</td>
-                  <td>${allCountries[i].area.toLocaleString()}</td>
-                  <td>${allCountries[i].region}</td>
-                </tr>
-              </a>`;
-        }
-
-        for (var i = 0; i < 5; i++) {
-          document.querySelector("tbody").innerHTML += `<tr>
-                <td><div class="playerSkeleton"></div></td>
-                <td><div class="textSkeleton"></div></td>
-                <td><div class="textSkeleton"></div></td>
-              </tr>`;
-        }
+        console.log(data);
+        setAllPlayers(data);
       })
       .catch((error) => {
         console.log(error);
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "La requête a échoué",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
+
   return (
     <div className="playerListPage">
-      <div class="logo" >
-        {/* <img src={BgImage} /> */}
+      <div>
+        <img src={BgImage} className="logo" />
       </div>
-      <div class="card subdiv">
-        <header>
-          <div class="playerCount">Répertoire de joueurs</div>
-          <div class="playerSearch">
-            <img src="./images/Search.svg" />
+      <div className="card subdiv">
+        <header className="listplayer">
+          <div className="playerCount">Répertoire de joueurs</div>
+          <div className="playerSearch">
+            <img src="http://jeffschaefer.net/challenges/devchallenges/countryrank/images/Search.svg" />
             <input type="text" placeholder="Rechercher un joueur" />
           </div>
         </header>
 
         <main>
-          <div class="player-sidebar">
+          <div className="player-sidebar">
             <section>
-              <label for="sort">Sort by</label>
-              <select name="sort">
-                <option value="population">Player Name</option>
-                <option value="name">Jersey Number</option>
-                <option value="area">Poste</option>
+              <label htmlFor="sortBy">Trié par :</label>
+              <select name="sortBy">
+                <option value="name">Nom de joueur</option>
+                <option value="number">Numéro de maillot</option>
+                <option value="poste">Poste</option>
               </select>
             </section>
             <section>
-              <label for="regions">Region</label>
-              <div class="regions">
-                <div class="region active">Americas</div>
-                <div class="region">Antarctic</div>
-                <div class="region active">Africa</div>
+              <label htmlFor="regions">Actions</label>
+              <div className="regions">
+                <AddPlayer />
+                {/* <AddPlayer className="region active" /> */}
               </div>
             </section>
-            <section>
-              <label for="status">Status</label>
-              <div class="memberCB">
-                <input type="checkbox" name="member" />
-                <label for="member">Member of the United Nations</label>
-              </div>
-              <div class="indCB">
-                <input type="checkbox" name="ind" checked />
-                <label for="ind">Independent</label>
-              </div>
-            </section>
+            <section></section>
           </div>
 
-          <div class="main">
+          <div className="main">
             <table>
               <thead>
                 <tr>
                   <th>Image</th>
                   <th>Player Name</th>
-                  <th>Jersey Number</th>
+                  <th>Jersey</th>
                   <th>Position</th>
-                  <th>Performance</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              {allPlayers && allPlayers.length > 0 && (
+                <tbody>
+                  {allPlayers.map((player) => (
+                    <tr key={player.id}>
+                      <td>
+                        <a href={`/player/${player.id}`}>
+                          <img
+                            src={
+                              player["playerImage"]
+                                ? player["playerImage"]
+                                : `https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg`
+                            }
+                            // src={player.playerImage}
+                            alt={player.playerName}
+                          />
+                        </a>
+                      </td>
+                      <td>{player.playerName}</td>
+                      <td>{player.jerseyNumber}</td>
+                      <td>{player.position}</td>
+                      <td className="ActionsBtn">
+                        <div className="playerIconBtn">
+                          <ShowPlayer playerID={player._id} />
+                        </div>{" "}
+                        <div className="playerIconBtn">
+                          {/* <EditPlayer playerID={player._id} /> */}
+                        </div>{" "}
+                        <div className="playerIconBtn">
+                          <EditPlayer playerID={player._id} />
+                        </div>{" "}
+                        <div className="playerIconBtn">
+                          <DeletePlayer playerID={player._id} />
+                        </div>{" "}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
             </table>
           </div>
         </main>

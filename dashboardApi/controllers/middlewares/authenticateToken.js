@@ -1,6 +1,9 @@
+require("dotenv").config({ path: "../../.env" });
 const jwt = require("jsonwebtoken");
+const jwtSecret = process.env.JWT_SECRET;
 
 const authenticateToken = (req, res, next) => {
+  console.log("waiting jwt-Token");
   const token = req.header("Authorization");
   if (!token) return res.status(401).send("Accès refusé.");
 

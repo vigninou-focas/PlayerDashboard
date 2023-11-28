@@ -1,6 +1,6 @@
 const express = require("express");
-const authenticateToken = require("../controllers/middlewares/authenticateToken");
 const router = express.Router();
+// const authenticateToken = require("../controllers/middlewares/authenticateToken");
 const {
   getPlayers,
   getPlayer,
@@ -9,7 +9,17 @@ const {
   deletePlayer,
 } = require("../controllers/player.js");
 
-router.get("/player", authenticateToken, getPlayers);
+// router.get("/player", authenticateToken, getPlayers);
+
+// router.get("/player/:playerID", authenticateToken, getPlayer);
+
+// router.post("/player", authenticateToken, createPlayer);
+
+// router.put("/player/:playerID", authenticateToken, updatePlayer);
+
+// router.delete("/player/:playerID", authenticateToken, deletePlayer);
+
+router.get("/player", getPlayers);
 
 router.get("/player/:playerID", getPlayer);
 
