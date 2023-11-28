@@ -20,10 +20,14 @@ function DeletePlayer(prop) {
 
     if (response.ok) {
       console.log(response);
-      const playerData = await response.json();
-      if (playerData) {
-        navigate("/");
-      }
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Suppression réussit",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/");
     } else {
       Swal.fire({
         position: "top-end",

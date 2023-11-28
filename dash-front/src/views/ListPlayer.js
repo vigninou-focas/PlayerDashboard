@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import AddPlayer from "../components/players/AddPlayer";
 // import EditPlayer from "../components/players/EditPlayer";
 import DeletePlayer from "../components/players/DeletePlayer";
+import EditPlayer from "../components/players/EditPlayer";
 
 function ListPlayer() {
   const [allPlayers, setAllPlayers] = useState("");
@@ -108,7 +109,11 @@ function ListPlayer() {
                       <td>
                         <a href={`/player/${player.id}`}>
                           <img
-                            src="https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg"
+                            src={
+                              player["playerImage"]
+                                ? player["playerImage"]
+                                : `https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg`
+                            }
                             // src={player.playerImage}
                             alt={player.playerName}
                           />
@@ -123,6 +128,9 @@ function ListPlayer() {
                         </div>{" "}
                         <div className="playerIconBtn">
                           {/* <EditPlayer playerID={player._id} /> */}
+                        </div>{" "}
+                        <div className="playerIconBtn">
+                          <EditPlayer playerID={player._id} />
                         </div>{" "}
                         <div className="playerIconBtn">
                           <DeletePlayer playerID={player._id} />

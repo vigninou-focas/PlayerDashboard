@@ -257,7 +257,6 @@ function AddPlayer() {
             </div>
           </div>
         </div>
-        <button onClick={closeModal}>close</button>
       </Modal>
     </div>
   );
