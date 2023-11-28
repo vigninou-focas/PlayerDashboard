@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import "../assets/css/listplayer.css";
 
 import BgImage from "../assets/img/img1.png";
-import IconView from "../assets/img/icons/view.png";
-import Delete from "../assets/img/icons/delete.png";
-import EditBtn from "../assets/img/icons/edit.png";
+// import IconView from "../assets/img/icons/view.png";
+// import EditBtn from "../assets/img/icons/edit.png";
 import ShowPlayer from "../components/players/ShowPlayer";
 import Swal from "sweetalert2";
 import AddPlayer from "../components/players/AddPlayer";
+// import EditPlayer from "../components/players/EditPlayer";
+import DeletePlayer from "../components/players/DeletePlayer";
 
 function ListPlayer() {
   const [allPlayers, setAllPlayers] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getAllplayers();
@@ -42,7 +43,6 @@ function ListPlayer() {
       .then((data) => {
         console.log(data);
         setAllPlayers(data);
-        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -118,15 +118,14 @@ function ListPlayer() {
                       <td>{player.jerseyNumber}</td>
                       <td>{player.position}</td>
                       <td className="ActionsBtn">
-                        {" "}
-                        <div className="playerIconBtn">
-                          <img src={IconView} />
-                        </div>{" "}
                         <div className="playerIconBtn">
                           <ShowPlayer playerID={player._id} />
                         </div>{" "}
                         <div className="playerIconBtn">
-                          <img src={Delete} />
+                          {/* <EditPlayer playerID={player._id} /> */}
+                        </div>{" "}
+                        <div className="playerIconBtn">
+                          <DeletePlayer playerID={player._id} />
                         </div>{" "}
                       </td>
                     </tr>

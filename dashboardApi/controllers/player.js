@@ -69,9 +69,17 @@ const updatePlayer = async (req, res) => {
 // DELETE a player by ID
 const deletePlayer = async (req, res) => {
   const playerID = req.params.playerID;
-  const isDelete = await Player.findByIdAndRemove({ _id: playerID });
-  if (isDelete) {
-    return res.status(200).json("player deleted");
+  try {
+    const isDelete = await Player.findOneAndDelete({ _id: playerID });
+
+    if (isDelete) {
+      return res.status(200).json("Player deleted successfully");
+    } else {
+      return res.status(404).json("Player not found");
+    }
+  } catch (error) {
+    console.error("Error deleting player:", error);
+    return res.status(500).json("Internal Server Error");
   }
 };
 

@@ -16,7 +16,7 @@ const customStyles = {
 };
 
 function EditPlayer() {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);

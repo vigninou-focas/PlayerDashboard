@@ -186,6 +186,7 @@ td {
   font-weight: 600;
   color: var(--light);
   cursor: pointer;
+  margin-bottom: 5px;
 }
 td:nth-child(1) {
   width: 12%;
@@ -200,6 +201,8 @@ td:nth-child(4) {
   width: 20%;
 }
 td:nth-child(5) {
+  padding-left: 20px;
+  border-left: solid 1px var(--dark);
   width: 35%;
 }
 td img {
@@ -224,10 +227,10 @@ td img {
   justify-content: space-between;
 }
 .playerIconBtn {
-  margin-right: 20px!important;
-  width: 150px;
+  margin-right: 15px!important;
+  width: 50px;
 }
 
 .playerIconBtn img {
-  width: 30px!important;
+  width: 25px!important;
 }
