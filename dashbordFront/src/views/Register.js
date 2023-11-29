@@ -72,7 +72,7 @@ const Register = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/");
+      navigate("/confirmation");
     } else {
       Swal.fire({
         position: "top-end",

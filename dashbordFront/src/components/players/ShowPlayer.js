@@ -68,7 +68,7 @@ function ShowPlayer(prop) {
     <div>
       <div onClick={openModal} className="region active">
         <div className="playerIconBtn">
-          <img src={IconView} />
+          <img src={IconView} alt="showBtn" />
         </div>{" "}
       </div>
       <Modal
@@ -87,7 +87,7 @@ function ShowPlayer(prop) {
           {player && (
             <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
               <div key={player._id}>
-                <div class="container px-5 py-24 mx-auto">
+                <div class="container px-5 py-24 mx-auto forScrall">
                   <div class="lg:w-4/5 mx-auto flex flex-wrap">
                     <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
                       <h2 class="text-sm title-font text-gray-500 tracking-widest">

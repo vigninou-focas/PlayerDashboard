@@ -28,7 +28,8 @@ function Login() {
     });
 
     if (response.ok) {
-      localStorage.setItem("jwtToken", response.body);
+      const savedToken = await response.text();
+      localStorage.setItem("jwtToken", savedToken);
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -47,7 +48,7 @@ function Login() {
         timer: 1500,
       });
       console.log(response);
-      navigate("/register");
+      // navigate("/register");
     }
   };
   return (
@@ -93,10 +94,7 @@ function Login() {
                     Password
                   </label>
                   <div className="text-sm">
-                    <a
-                      href="#"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
+                    <a className="font-semibold text-indigo-600 hover:text-indigo-500">
                       password oublié?
                     </a>
                   </div>

@@ -40,7 +40,7 @@ async function MailVerification() {
           showConfirmButton: false,
           timer: 1500,
         });
-        // const result = await response.json();
+        localStorage.setItem("jwtToken", token.id);
         navigate("/");
       } else {
         Swal.fire({

@@ -6,7 +6,7 @@
   --blue: #4e80ee;
 }
 @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700&display=swap");
-body{
+body {
   background-image: url("../img/pbg2.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -31,7 +31,7 @@ body{
   width: fit-content;
   border-radius: 10px;
 }
-.voile{
+.voile {
   position: absolute;
   top: 0;
   left: 0;
@@ -47,13 +47,7 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
 }
-.logo {
-  position: absolute;
-  top: 0%!important;
-  left: 43%;
-  width: 300px;
-  border-radius: 50%;
-}
+
 
 .card {
   background: var(--xdark);
@@ -63,6 +57,7 @@ body{
   border: 1px solid var(--dark);
   position: absolute;
   top: 15%;
+  overflow: scroll;
 }
 
 header.listplayer {
@@ -139,7 +134,7 @@ main {
   font-weight: 600;
   color: var(--blue);
   padding: 10px 10px;
-  background-color: blue!important;
+  background-color: blue !important;
   cursor: pointer;
 }
 .player-sidebar .region.active {
@@ -170,7 +165,7 @@ main {
 .player-sidebar .indCB input:checked:before {
   background: var(--blue);
   border: 2px solid var(--blue);
-  background-image: url('https://img.freepik.com/premium-vector/dark-hexagon-gaming-abstract-vector-background-with-blue-green-colored-bright-flashes_156943-643.jpg');
+  /* background-image: url("https://img.freepik.com/premium-vector/dark-hexagon-gaming-abstract-vector-background-with-blue-green-colored-bright-flashes_156943-643.jpg"); */
 }
 .player-sidebar .memberCB label,
 .player-sidebar .indCB label {
@@ -194,7 +189,7 @@ th {
   font-weight: bold;
   color: var(--med);
   font-weight: 700;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid var(--dark);
   padding-bottom: 20px;
 }
@@ -210,18 +205,22 @@ td:nth-child(1) {
   width: 12%;
 }
 td:nth-child(2) {
-  width: 23%;
+  width: 15%;
 }
 td:nth-child(3) {
-  width: 23%;
+  width: 12%;
+  text-align: center;
 }
 td:nth-child(4) {
   width: 20%;
 }
 td:nth-child(5) {
-  padding-left: 20px;
+  padding-left: 15px;
   border-left: solid 1px var(--dark);
-  width: 35%;
+  width: 45%;
+}
+td:nth-child(6) {
+  width: 15%;
 }
 td img {
   width: 40px;
@@ -240,27 +239,94 @@ td img {
   height: 10px;
   border-radius: 5px;
 }
-.ActionsBtn{
+.ActionsBtn {
   display: flex;
   justify-content: space-between;
 }
 .playerIconBtn {
-  margin-right: 15px!important;
+  margin-right: 15px !important;
   width: 50px;
 }
 
 .playerIconBtn img {
-  width: 25px!important;
+  width: 25px !important;
 }
 
 /* ShowPlayer ---> performance */
-.performance{
+.performance {
   margin-top: 20px;
   padding: 20px;
   border: solid 1px var(--light);
 }
-.performance li{
+.performance li {
   display: flex;
   margin-bottom: 10px;
   justify-content: space-between;
+}
+
+/* Modal Performance */
+.performance_modal input {
+  width: 80px;
+}
+.performance_modal form label {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+.performance_modal .result_average {
+  width: 100%;
+}
+.performance_modal .form_container {
+  margin-left: 50px;
+  margin-right: 80px;
+  display: flex;
+  flex-direction: column;
+}
+.performance_modal .form_container .result_average {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 400px;
+}
+.title_ {
+  margin-bottom: 5px;
+}
+.average {
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+.Average-button {
+  display: flex;
+  justify-content: center;
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  width: 100px;
+  border-radius: 5px;
+  border: solid 1px white;
+  background-color: rgb(237, 32, 0);
+}
+/* .modalContainer {
+} */
+.forScrall{
+  overflow: scroll;
+}
+
+@media only screen and (max-width: 900px) {
+  th {
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--med);
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid var(--dark);
+    padding-bottom: 20px;
+  }
+  td {
+    font-size: 0.8em;
+  }
+  .playerIconBtn {
+    margin-right: 15px !important;
+    width: 20px;
+  }
 }

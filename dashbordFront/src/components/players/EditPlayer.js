@@ -113,6 +113,7 @@ function EditPlayer(props) {
         showConfirmButton: false,
         timer: 1500,
       });
+      setIsOpen(false);
       navigate("/");
     } else {
       Swal.fire({
@@ -131,7 +132,7 @@ function EditPlayer(props) {
     <div>
       <div onClick={openModal} className="region active">
         <div className="playerIconBtn">
-          <img src={EditBtnn} />
+          <img src={EditBtnn} alt="edition" />
         </div>{" "}
       </div>
       <Modal
@@ -142,10 +143,10 @@ function EditPlayer(props) {
         contentLabel="Edit new player"
       >
         <div className="modalContainer">
-          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 wrapper-l1">
+          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-5 lg:px-8 wrapper-l1">
             <div className="formWrapper">
               <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                   Edition de joueur
                 </h2>
               </div>

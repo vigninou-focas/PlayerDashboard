@@ -4,6 +4,7 @@ import Register from "./views/Register";
 import Login from "./views/Login";
 import ListPlayer from "./views/ListPlayer";
 import MailVerification from "./components/MailVerification";
+import WaitConfMail from "./components/WaitConfMail";
 
 function DashRouter() {
   return (
@@ -13,6 +14,7 @@ function DashRouter() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verification/:id" element={<MailVerification />} />
+        <Route path="/confirmation" element={<WaitConfMail />} />
       </Routes>
     </Router>
   );

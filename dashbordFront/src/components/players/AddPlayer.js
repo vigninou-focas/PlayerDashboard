@@ -81,6 +81,7 @@ function AddPlayer() {
         showConfirmButton: false,
         timer: 1500,
       });
+      setIsOpen(false);
       navigate("/");
     } else {
       Swal.fire({
@@ -98,7 +99,7 @@ function AddPlayer() {
   return (
     <div>
       <div onClick={openModal} className="region active">
-        Ajouter un joueur
+        New player
       </div>
       <Modal
         isOpen={modalIsOpen}
@@ -239,7 +240,7 @@ function AddPlayer() {
                       type="submit"
                       className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                      Se connecter
+                      Ajouter
                     </button>
                   </div>
                 </form>
