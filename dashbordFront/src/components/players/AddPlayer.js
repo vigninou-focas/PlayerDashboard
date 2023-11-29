@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import Swal from "sweetalert2";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../assets/css/login.css";
 
 const customStyles = {
@@ -17,7 +17,6 @@ const customStyles = {
 
 function AddPlayer() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [rerender, setReRender] = useState("");
 
   function openModal() {
     setIsOpen(true);
@@ -31,7 +30,6 @@ function AddPlayer() {
   const [jerseyNumber, setJerseyNumber] = useState("");
   const [position, setPosition] = useState("");
   const [playerImage, setPlayerImage] = useState("");
-  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -62,19 +60,6 @@ function AddPlayer() {
       return;
     }
 
-    // // Si les mots de pass concordent
-    // if (position !== playerImage) {
-    //   Swal.fire({
-    //     position: "top-end",
-    //     icon: "error",
-    //     timer: 1500,
-    //     title: "Les mots de passe ne correspondent pas !",
-    //     showConfirmButton: false,
-    //   });
-    //   // setError("Les mots de passe ne correspondent pas !");
-    //   return;
-    // }
-
     const response = await fetch("http://localhost:5000/player", {
       method: "POST",
       body: JSON.stringify({
@@ -96,7 +81,6 @@ function AddPlayer() {
         showConfirmButton: false,
         timer: 1500,
       });
-      setError("");
       navigate("/");
     } else {
       Swal.fire({
@@ -108,13 +92,14 @@ function AddPlayer() {
       });
       const errorData = await response.json();
       console.log(errorData);
-      setError(errorData || response.statusText);
     }
   };
 
   return (
     <div>
-      <div onClick={openModal} className="region active">Ajouter un joueur</div>
+      <div onClick={openModal} className="region active">
+        Ajouter un joueur
+      </div>
       <Modal
         isOpen={modalIsOpen}
         // onAfterOpen={afterOpenModal}
@@ -232,11 +217,15 @@ function AddPlayer() {
                         <option value="" disabled>
                           Sélectionnez une image
                         </option>
-                        <option value="https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg">Michael Jordan</option>
+                        <option value="https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg">
+                          Michael Jordan
+                        </option>
                         <option value="https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/45843.png">
                           Lonel Messi
                         </option>
-                        <option value="https://cdn.britannica.com/19/233519-050-F0604A51/LeBron-James-Los-Angeles-Lakers-Staples-Center-2019.jpg">Lebron</option>
+                        <option value="https://cdn.britannica.com/19/233519-050-F0604A51/LeBron-James-Los-Angeles-Lakers-Staples-Center-2019.jpg">
+                          Lebron
+                        </option>
                         <option value="https://manunitedcore.com/wp-content/uploads/2021/09/Ronaldo-Profile.png">
                           CR7
                         </option>

@@ -38,7 +38,7 @@ body{
   width: 100vw;
   height: 100vh;
   background-color: #1b1d1f;
-  opacity: 0.6;
+  opacity: 0.75;
 }
 
 .subdiv {
@@ -59,10 +59,10 @@ body{
   background: var(--xdark);
   border-radius: 10px;
   padding: 30px 40px;
-  width: 80%;
+  width: 90%;
   border: 1px solid var(--dark);
   position: absolute;
-  top: 40%;
+  top: 15%;
 }
 
 header.listplayer {

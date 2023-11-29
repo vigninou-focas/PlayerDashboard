@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import EditBtnn from "../../assets/img/icons//edit.png";
+import EditBtnn from "../../assets/img/icons/edit.png";
 import "../../assets/css/login.css";
 
 const customStyles = {

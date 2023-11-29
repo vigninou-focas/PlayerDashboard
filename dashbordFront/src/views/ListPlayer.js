@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/listplayer.css";
 
-import BgImage from "../assets/img/img1.png";
 // import IconView from "../assets/img/icons/view.png";
 // import EditBtn from "../assets/img/icons/edit.png";
 import ShowPlayer from "../components/players/ShowPlayer";
@@ -13,7 +12,6 @@ import EditPlayer from "../components/players/EditPlayer";
 
 function ListPlayer() {
   const [allPlayers, setAllPlayers] = useState("");
-  const [rerender, setReRender] = useState(false);
   // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -61,14 +59,13 @@ function ListPlayer() {
 
   return (
     <div className="playerListPage">
-      {/* <div>
-        <img src={BgImage} className="logo" />
-      </div> */}
+       <div className="voile">
+      </div> 
       <div className="card subdiv">
         <header className="listplayer">
           <div className="playerCount">Répertoire de joueurs</div>
           <div className="playerSearch">
-            <img src="http://jeffschaefer.net/challenges/devchallenges/countryrank/images/Search.svg" />
+            <img src="http://jeffschaefer.net/challenges/devchallenges/countryrank/images/Search.svg" alt="icon" />
             <input type="text" placeholder="Rechercher un joueur" />
           </div>
         </header>
