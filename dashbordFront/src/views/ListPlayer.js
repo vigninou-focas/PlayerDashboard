@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/listplayer.css";
-
-import BgImage from "../assets/img/img1.png";
-// import IconView from "../assets/img/icons/view.png";
-// import EditBtn from "../assets/img/icons/edit.png";
 import ShowPlayer from "../components/players/ShowPlayer";
 import Swal from "sweetalert2";
 import AddPlayer from "../components/players/AddPlayer";
-// import EditPlayer from "../components/players/EditPlayer";
 import DeletePlayer from "../components/players/DeletePlayer";
 import EditPlayer from "../components/players/EditPlayer";
+import PerformanceCalculator from "../components/PerformanceCalculator";
 
 function ListPlayer() {
   const [allPlayers, setAllPlayers] = useState("");
@@ -59,14 +55,15 @@ function ListPlayer() {
 
   return (
     <div className="playerListPage">
-      <div>
-        <img src={BgImage} className="logo" />
-      </div>
+      <div className="voile"></div>
       <div className="card subdiv">
         <header className="listplayer">
           <div className="playerCount">Répertoire de joueurs</div>
           <div className="playerSearch">
-            <img src="http://jeffschaefer.net/challenges/devchallenges/countryrank/images/Search.svg" />
+            <img
+              src="http://jeffschaefer.net/challenges/devchallenges/countryrank/images/Search.svg"
+              alt="icon"
+            />
             <input type="text" placeholder="Rechercher un joueur" />
           </div>
         </header>
@@ -85,7 +82,9 @@ function ListPlayer() {
               <label htmlFor="regions">Actions</label>
               <div className="regions">
                 <AddPlayer />
-                {/* <AddPlayer className="region active" /> */}
+              </div>
+              <div className="regions">
+                <PerformanceCalculator />
               </div>
             </section>
             <section></section>
@@ -96,10 +95,11 @@ function ListPlayer() {
               <thead>
                 <tr>
                   <th>Image</th>
-                  <th>Player Name</th>
+                  <th>Name</th>
                   <th>Jersey</th>
                   <th>Position</th>
                   <th>Actions</th>
+                  <th></th>
                 </tr>
               </thead>
               {allPlayers && allPlayers.length > 0 && (
@@ -114,7 +114,6 @@ function ListPlayer() {
                                 ? player["playerImage"]
                                 : `https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg`
                             }
-                            // src={player.playerImage}
                             alt={player.playerName}
                           />
                         </a>
@@ -136,6 +135,7 @@ function ListPlayer() {
                           <DeletePlayer playerID={player._id} />
                         </div>{" "}
                       </td>
+                      <td></td>
                     </tr>
                   ))}
                 </tbody>

@@ -23,7 +23,7 @@ router.post("/user/register", register);
 
 router.put("/user/:userID", authenticateToken, updateUser);
 
-router.get("mail_verification/:token", mail_verification)
+router.get("/mail_verification/:token", mail_verification)
 
 router.delete("/user/:userID", authenticateToken, deleteUser);
 

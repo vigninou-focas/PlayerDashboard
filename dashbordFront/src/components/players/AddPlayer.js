@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import Swal from "sweetalert2";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../assets/css/login.css";
 
 const customStyles = {
@@ -30,7 +30,6 @@ function AddPlayer() {
   const [jerseyNumber, setJerseyNumber] = useState("");
   const [position, setPosition] = useState("");
   const [playerImage, setPlayerImage] = useState("");
-  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -61,19 +60,6 @@ function AddPlayer() {
       return;
     }
 
-    // // Si les mots de pass concordent
-    // if (position !== playerImage) {
-    //   Swal.fire({
-    //     position: "top-end",
-    //     icon: "error",
-    //     timer: 1500,
-    //     title: "Les mots de passe ne correspondent pas !",
-    //     showConfirmButton: false,
-    //   });
-    //   // setError("Les mots de passe ne correspondent pas !");
-    //   return;
-    // }
-
     const response = await fetch("http://localhost:5000/player", {
       method: "POST",
       body: JSON.stringify({
@@ -95,7 +81,7 @@ function AddPlayer() {
         showConfirmButton: false,
         timer: 1500,
       });
-      setError("");
+      setIsOpen(false);
       navigate("/");
     } else {
       Swal.fire({
@@ -107,13 +93,14 @@ function AddPlayer() {
       });
       const errorData = await response.json();
       console.log(errorData);
-      setError(errorData || response.statusText);
     }
   };
 
   return (
     <div>
-      <div onClick={openModal} className="region active">Add player</div>
+      <div onClick={openModal} className="region active">
+        New player
+      </div>
       <Modal
         isOpen={modalIsOpen}
         // onAfterOpen={afterOpenModal}
@@ -121,23 +108,23 @@ function AddPlayer() {
         style={customStyles}
         contentLabel="Add new player"
       >
-        <div className="modalContainer">
+        <div className="modalContainer text-gray-400 bg-gray-900 body-font overflow-hidden">
           <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 wrapper-l1">
             <div className="formWrapper">
               <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                  Se connecter au dashboard
+                  Ajouter un joueur
                 </h2>
               </div>
 
-              <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+              <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm ">
                 <form className="space-y-6" onSubmit={submitHandler}>
                   <div>
                     <label
                       htmlFor="playerName"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Entrer un nom d'utilisateur
+                      Entrer un nom du joueur
                     </label>
                     <div className="mt-2">
                       <input
@@ -231,11 +218,15 @@ function AddPlayer() {
                         <option value="" disabled>
                           Sélectionnez une image
                         </option>
-                        <option value="https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg">Michael Jordan</option>
+                        <option value="https://www.radiofrance.fr/s3/cruiser-production/2023/08/a66db781-d0e3-4ea1-b851-bf940b85088c/400x400_sc_jordan.jpg">
+                          Michael Jordan
+                        </option>
                         <option value="https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/45843.png">
                           Lonel Messi
                         </option>
-                        <option value="https://cdn.britannica.com/19/233519-050-F0604A51/LeBron-James-Los-Angeles-Lakers-Staples-Center-2019.jpg">Lebron</option>
+                        <option value="https://cdn.britannica.com/19/233519-050-F0604A51/LeBron-James-Los-Angeles-Lakers-Staples-Center-2019.jpg">
+                          Lebron
+                        </option>
                         <option value="https://manunitedcore.com/wp-content/uploads/2021/09/Ronaldo-Profile.png">
                           CR7
                         </option>
@@ -249,7 +240,7 @@ function AddPlayer() {
                       type="submit"
                       className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                      Se connecter
+                      Ajouter
                     </button>
                   </div>
                 </form>

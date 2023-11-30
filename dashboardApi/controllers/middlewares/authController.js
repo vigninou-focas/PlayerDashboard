@@ -3,10 +3,6 @@ const User = require("../../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// const path = require("path");
-// const dotenvPath = path.resolve(__dirname, "../.env");
-// require("dotenv").config({ path: dotenvPath });
-
 const jwtSecret = process.env.JWT_SECRET;
 // path.resolve(process.cwd(), '.env')
 
@@ -20,19 +16,35 @@ const login = async (req, res) => {
   if (!loginUser) {
     return res.status(400).json({ error: "Utilisateur inexistant" });
   }
-
   const isPasswordCorrect = await bcrypt.compare(
     req.body.password,
     loginUser.password
   );
-  if (isPasswordCorrect) {
+  if (isPasswordCorrect && loginUser.isVerify) {
     const loginToken = jwt.sign({ email: loginUser.email }, jwtSecret, {
       expiresIn: "3600000",
     });
-    // console.log(loginToken);
-    return res.status(200).json(loginToken);
 
-    // return res.status(200).json(loginUser._id);
+    const updatedUser = {
+      username: loginUser.username,
+      email: loginUser.email,
+      profile: loginUser.profile,
+      password: loginUser.password,
+      isAdmin: loginUser.isAdmin,
+      isVerify: loginUser.isVerify,
+      token: loginToken,
+    };
+
+    console.log(updatedUser);
+
+    // return res.status(200).json("User updated");
+    const updateFinished = await User.replaceOne(loginUser, updatedUser);
+    if (updateFinished) {
+      console.log(updateFinished);
+
+      // console.log(loginToken);
+      return res.status(200).json(loginToken);
+    }
   } else {
     return res
       .status(400)
@@ -61,7 +73,7 @@ const register = async (req, res) => {
     password: hashedPassword,
     isAdmin: req.body.isAdmin,
     isVerify: req.body.isVerify,
-    token: "",
+    token: mailToken,
   });
   console.log(newUser);
   try {
@@ -83,7 +95,7 @@ const register = async (req, res) => {
           from: process.env.EMAIL,
           to: newUser.email,
           subject: "Mail confirmation",
-          text: `Suivez le lien suivant pour valider votre compte : http://${process.env.FINAL_HOST}:3000/verification/${newUser.token}`,
+          text: `<h2>Suivez le lien suivant pour valider votre compte :</h2> </br> http://${process.env.HOST}:3000/verification/${newUser.token}`,
         };
 
         console.log(Mail_object_Data);
@@ -91,11 +103,11 @@ const register = async (req, res) => {
           const current_mail = await transporter.sendMail(Mail_object_Data);
           if (current_mail) {
             console.log("current_mail : " + current_mail);
-            console.log("-------------------------------------Start mail_form");
+            console.log("----------------------------------- Start mail_form");
             console.log(current_mail.messageId + " " + current_mail);
           }
           console.log(current_mail);
-          console.log("-------------------------------------End mail_form");
+          console.log("------------------------------------- End mail_form");
 
           res.status(201).json({
             success:
@@ -123,22 +135,23 @@ const mail_verification = async (req, res) => {
     token: verif_token,
   });
   console.log(verif_token);
+  console.log(verif_User);
+
   if (verif_User) {
     const updatedUser = {
       username: verif_User.username,
       email: verif_User.email,
-      profile: verif_User.profile,
-      password: hashedPassword,
+      password: verif_User.password,
       isAdmin: verif_User.isAdmin,
-      isVerify: verif_User.isVerify,
+      isVerify: true,
       token: "",
     };
     console.log(updatedUser);
-    // return res.status(200).json("User updated");
 
-    const verif_User = await User.replaceOne(verif_User, updatedUser);
-    if (verif_User) {
-      console.log(verif_User);
+    const replacedUser = await User.replaceOne(verif_User, updatedUser);
+
+    if (replacedUser) {
+      console.log(replacedUser);
       return res.status(200).send({ success: "user update successfuly" });
     }
   }
